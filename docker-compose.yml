@@ -12,7 +12,7 @@ services:
             MYSQL_ROOT_PASSWORD: '' # mysql root password
             MYSQL_DATABASE: mattermost
             MYSQL_USER: mmuser
-            MYSQL_PASSWORD: '' mysql mmuser password
+            MYSQL_PASSWORD: '' # mysql mmuser password
             TZ: Asia/Tokyo
         ports:
             - "3306:3306"
