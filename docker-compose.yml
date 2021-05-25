@@ -22,7 +22,6 @@ services:
             - mattermost
 
     mm:
-        platform: linux/amd64
         container_name: mm
         build:
             context: mattermost/
