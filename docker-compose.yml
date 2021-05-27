@@ -2,7 +2,7 @@ version: '3'
 
 services:
     mm-mysql:
-        platform: linux/amd64  # for for Apple silicon (Mac M1) https://docs.docker.com/docker-for-mac/apple-silicon/#known-issues 
+        # platform: linux/amd64  # for for Apple silicon (Mac M1) https://docs.docker.com/docker-for-mac/apple-silicon/#known-issues 
         container_name: mm-mysql
         build:
             context: mysql/
@@ -23,7 +23,7 @@ services:
             - mattermost
 
     mm:
-        platform: linux/amd64  # for for Apple silicon (Mac M1) https://docs.docker.com/docker-for-mac/apple-silicon/#known-issues 
+        # platform: linux/amd64  # for for Apple silicon (Mac M1) https://docs.docker.com/docker-for-mac/apple-silicon/#known-issues 
         container_name: mm
         build:
             context: mattermost/
