@@ -2,17 +2,18 @@ version: '3'
 
 services:
     mm-mysql:
-#         platform: linux/amd64  # for for Apple silicon (Mac M1) https://docs.docker.com/docker-for-mac/apple-silicon/#known-issues 
+        platform: linux/amd64  # for for Apple silicon (Mac M1) https://docs.docker.com/docker-for-mac/apple-silicon/#known-issues 
         container_name: mm-mysql
         build:
             context: mysql/
             dockerfile: Dockerfile
+            args:
+                - ROOT_PASSWORD=
+                - DATABASE=mattermost
+                - USER=mmuser
+                - PASSWORD=
         command: --default-authentication-plugin=mysql_native_password
         environment:
-            MYSQL_ROOT_PASSWORD: '' # mysql root password
-            MYSQL_DATABASE: mattermost
-            MYSQL_USER: mmuser
-            MYSQL_PASSWORD: '' # mysql mmuser password
             TZ: Asia/Tokyo
         ports:
             - "3306:3306"
@@ -22,6 +23,7 @@ services:
             - mattermost
 
     mm:
+        platform: linux/amd64  # for for Apple silicon (Mac M1) https://docs.docker.com/docker-for-mac/apple-silicon/#known-issues 
         container_name: mm
         build:
             context: mattermost/
