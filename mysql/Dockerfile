@@ -1,9 +1,11 @@
 FROM mysql:8
 
 ARG ROOT_PASSWORD=""
-ARG DATABASE=mattermost
-ARG USER=mmuser
+ARG DATABASE=""
+ARG USER=""
 ARG PASSWORD=""
+
+RUN echo "${ROOT_PASSWORD} ${DATABASE} ${USER} ${PASSWORD}"
 
 RUN apt-get -y update
 RUN apt-get -y install vim wget curl git less procps net-tools sudo make cmake gcc g++ zip gzip unzip tar

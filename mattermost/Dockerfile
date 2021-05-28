@@ -1,28 +1,19 @@
 FROM ubuntu:21.04
 
-ARG MM_VER=5.35.1
+ARG MM_VER=""
 ARG PUID=2000
 ARG PGID=2000
-ARG DB_HOST=127.0.0.1
-ARG DB_PORT=3306
+ARG DB_HOST=""
+ARG DB_PORT=""
+ARG DATABASE=""
+ARG DB_USER=""
+ARG DB_PASSWORD=""
+
+RUN echo "${MM_VER} ${DB_HOST} ${DB_PORT} ${DATABASE} ${DB_USER} ${DB_PASSWORD}"
 
 RUN apt-get -y update
-RUN apt-get -y install vim
-RUN apt-get -y install wget
-RUN apt-get -y install curl
+RUN apt-get -y install vim wget curl less procps net-tools sudo make cmake gcc g++ zip gzip unzip tar
 RUN apt-get -y install git
-RUN apt-get -y install less
-RUN apt-get -y install procps
-RUN apt-get -y install net-tools
-RUN apt-get -y install sudo
-RUN apt-get -y install make
-RUN apt-get -y install cmake
-RUN apt-get -y install gcc
-RUN apt-get -y install g++
-RUN apt-get -y install zip
-RUN apt-get -y install gzip
-RUN apt-get -y install unzip
-RUN apt-get -y install tar
 
 WORKDIR /work
 
@@ -35,7 +26,7 @@ RUN mkdir /opt/mattermost/plugins
 RUN mkdir /opt/mattermost/client/plugins
 RUN echo $(ls -l /opt/mattermost/)
 RUN sed -i -e "s|\"DriverName\": \"postgres\"|\"DriverName\": \"mysql\"|" \
-        -i -e "s|\"DataSource\":.*\"|\"DataSource\": \"mmuser:mmpass@tcp(${DB_HOST}:${DB_PORT})/mattermost?charset=utf8mb4,utf8\\u0026readTimeout=30s\\u0026writeTimeout=30s\"|" \
+        -i -e "s|\"DataSource\":.*\"|\"DataSource\": \"${DB_USER}:${DB_PASSWORD}@tcp(${DB_HOST}:${DB_PORT})/${DATABASE}?charset=utf8mb4,utf8\\u0026readTimeout=30s\\u0026writeTimeout=30s\"|" \
         -i -e "s|\"DefaultServerLocale\": \"en\"|\"DefaultServerLocale\": \"ja\"|" \
         -i -e "s|\"DefaultClientLocale\": \"en\"|\"DefaultClientLocale\": \"ja\"|" \
         -i -e "s|\"AvailableLocales\": \"\"|\"AvailableLocales\": \"ja,en\"|" \
