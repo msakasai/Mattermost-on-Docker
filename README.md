@@ -21,11 +21,27 @@ ex.
 ```yaml
 # docker-compose.yml
 
-environment:
-    MYSQL_ROOT_PASSWORD: root
-    MYSQL_DATABASE: mattermost
-    MYSQL_USER: mmuser
-    MYSQL_PASSWORD: mmpass
+mm-mysql:
+    ...
+    build:
+        ...
+        args:
+            - ROOT_PASSWORD=root
+            - DATABASE=mattermost
+            - USER=mmuser
+            - PASSWORD=mmpass
+    ...
+
+mm:
+    ...
+    build:
+        ...
+        args:
+            ...
+            - DATABASE=mattermost
+            - DB_USER=mmuser
+            - DB_PASSWORD=mmpass
+    ...
 ```
 
 ### Optional docker build parameters
@@ -33,13 +49,15 @@ environment:
 ```yaml
 # docker-compose.yml
 
-build:
-    context: mattermost/
-    dockerfile: Dockerfile
-    args:
-        - MM_VER=5.35.1 # mattermost version
-        - DB_HOST=mm-mysql # mysql hostname
-        - DB_PORT=3306 # mysql port
+mm:
+    ...
+    build:
+        ...
+        args:
+            - MM_VER=5.35.1
+            - DB_HOST=mm-mysql
+            - DB_PORT=3306
+    ...
 ```
 
 ### Run mattermost
